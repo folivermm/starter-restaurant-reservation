@@ -80,3 +80,20 @@ export async function newReservation(reservation, signal) {
   }
   return await fetchJson(url, options)
 }
+
+export async function readReservation(reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}`
+  return await fetchJson(url, { signal }, [])
+    .then(formatReservationDate)
+    .then(formatReservationTime)
+}
+
+export async function cancelReservation(reservation_id, status, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}/status`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { status: status } }),
+  }
+  return await fetchJson(url, options, { status })
+}
