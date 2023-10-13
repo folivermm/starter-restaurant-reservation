@@ -398,3 +398,97 @@ so that reservations are accurate and current.
    - Clicking "Cancel" makes no changes, then display the previous page.
 
 > **Hint** The same validation used for create applies to editing a reservation. The form and the API for updating a reservation must not allow the user to violate any of the rules specified when creating a reservation.
+
+```
+starter-restaurant-reservation-main
+├
+├─ .github
+│  └─ workflows
+│     ├─ codeql-analysis.yml
+│     └─ node.js.yml
+├─ .gitignore
+├─ back-end
+│  ├─ .gitignore
+│  ├─ knexfile.js
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ README.md
+│  ├─ src
+│  │  ├─ app.js
+│  │  ├─ db
+│  │  │  ├─ connection.js
+│  │  │  ├─ migrations
+│  │  │  │  └─ 20210123122225_createReservationsTable.js
+│  │  │  └─ seeds
+│  │  │     ├─ 00-reservations.js
+│  │  │     └─ 00-reservations.json
+│  │  ├─ errors
+│  │  │  ├─ errorHandler.js
+│  │  │  └─ notFound.js
+│  │  ├─ reservations
+│  │  │  ├─ reservations.controller.js
+│  │  │  ├─ reservations.router.js
+│  │  │  └─ reservations.service.js
+│  │  └─ server.js
+│  ├─ test
+│  │  ├─ drop-database.js
+│  │  ├─ jest.config.js
+│  │  ├─ us-01-create-and-list-reservations.test.js
+│  │  ├─ us-02-create-reservations-future-date.test.js
+│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
+│  │  ├─ us-04-seat-reservation.test.js
+│  │  ├─ us-05-finish-occupied-table.test.js
+│  │  ├─ us-06-reservation-status.test.js
+│  │  ├─ us-07-search-reservations.test.js
+│  │  └─ us-08-change-existing-reservation.test.js
+│  └─ vercel.json
+├─ front-end
+│  ├─ .gitignore
+│  ├─ e2e
+│  │  ├─ api.js
+│  │  ├─ jest.config.js
+│  │  ├─ us-01-create-and-list-reservation.test.js
+│  │  ├─ us-02-create-reservations-future-date.test.js
+│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
+│  │  ├─ us-04-seat-reservation.test.js
+│  │  ├─ us-05-finish-occupied-table.test.js
+│  │  ├─ us-06-reservation-status.test.js
+│  │  ├─ us-07-search-reservations.test.js
+│  │  ├─ us-08-change-existing-reservation.test.js
+│  │  └─ utils.js
+│  ├─ jest-puppeteer.config.js
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ public
+│  │  ├─ favicon.ico
+│  │  └─ index.html
+│  ├─ README.md
+│  └─ src
+│     ├─ App.js
+│     ├─ App.test.js
+│     ├─ dashboard
+│     │  └─ Dashboard.js
+│     ├─ index.js
+│     ├─ layout
+│     │  ├─ ErrorAlert.js
+│     │  ├─ Layout.css
+│     │  ├─ Layout.js
+│     │  ├─ Menu.js
+│     │  ├─ NotFound.js
+│     │  └─ Routes.js
+│     ├─ reservations
+│     │  ├─ NewReservation.js
+│     │  ├─ ReservaationList.js
+│     │  ├─ Reservation.js
+│     │  └─ ReservationForm.js
+│     └─ utils
+│        ├─ api.js
+│        ├─ date-time.js
+│        ├─ format-reservation-date.js
+│        ├─ format-reservation-time.js
+│        └─ useQuery.js
+├─ package-lock.json
+├─ package.json
+└─ README.md
+
+```
