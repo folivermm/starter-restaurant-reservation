@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
-import ErrorAlert from "../layout/ErrorAlert";
-
+import React, { useEffect, useState } from "react"
+import { listReservations } from "../utils/api"
+import ReservationList from "../reservations/ReservationList"
+import ErrorAlert from "../layout/ErrorAlert"
+import DateChanger from "./DateChanger"
 /**
  * Defines the dashboard page.
  * @param date
@@ -26,11 +27,19 @@ function Dashboard({ date }) {
   return (
     <main>
       <h1>Dashboard</h1>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date</h4>
+      <div>
+        <h4>Date selection</h4>
       </div>
       <ErrorAlert error={reservationsError} />
-      {JSON.stringify(reservations)}
+      <DateChanger currentDate={date} />
+
+      <div>
+        <h5>Reservations date: {date}</h5>
+        <ReservationList
+          reservations={reservations}
+          loadDashboard={loadDashboard}
+        />
+      </div>
     </main>
   );
 }

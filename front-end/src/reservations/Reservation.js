@@ -1,5 +1,6 @@
 import React from "react";
 import { cancelReservation } from "../utils/api";
+import { useHistory } from "react-router-dom";
 
 function Reservation({
     reservation_id,
@@ -9,31 +10,36 @@ function Reservation({
     reservation_date,
     reservation_time,
     people,
-    loadDashboard,
 }) {
+    const history = useHistory();
+
     function cancelHandler(event, reservation_id) {
         event.preventDefault();
         const notification = "Do you want to cancel this reservation?";
         if (window.confirm(notification)) {
-            cancelReservation(reservation_id, "cancelled").then(() =>
-                loadDashboard()
-            );
+            cancelReservation(reservation_id, "cancelled")
+                .then(() => {
+                    history.push("/"); // Redirect to home after cancellation.
+                })
+                .catch((error) => {
+                    console.error("Error canceling the reservation:", error);
+                    // Handle the error gracefully on the frontend, for instance, displaying a notification.
+                });
         }
     }
 
     return (
-        <div className="card mb-3" key={reservation_id}>
-            <div className="card-body">
-                <p className="card-text">
+        <div key={reservation_id}>
+            <div>
+                <p>
                     Name: {first_name} {last_name}
                 </p>
-                <p className="card-text">Mobile number: {mobile_number}</p>
-                <p className="card-text">Date: {reservation_date}</p>
-                <p className="card-text">Time: {reservation_time}</p>
-                <p className="card-text">Party Size: {people} </p>
-                <p className="card-text">Reservation ID: {reservation_id}</p>
+                <p>Mobile number: {mobile_number}</p>
+                <p>Date: {reservation_date}</p>
+                <p>Time: {reservation_time}</p>
+                <p>Party Size: {people}</p>
+                <p>Reservation ID: {reservation_id}</p>
                 <button
-                    className="btn btn-danger m-1"
                     data-reservation-id-cancel={reservation_id}
                     onClick={(event) => cancelHandler(event, reservation_id)}
                 >

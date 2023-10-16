@@ -12,38 +12,55 @@ function NewReservation() {
         mobile_number: "",
         reservation_date: "",
         reservation_time: "",
-        people: "",
+        people: 1,
     }
-    const [reservation, setReservation] = useState(initialFormState)
-    const [error, setError] = useState(null)
-    const history = useHistory()
+
+    const [reservation, setReservation] = useState(initialFormState);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
 
     const changeHandler = (event) => {
-        setReservation({ ...reservation, [event.target.name]: event.target.value })
+        setError(null); // Clear any previous error when a user modifies any input
+        setReservation({ ...reservation, [event.target.name]: event.target.value });
     }
 
     const submitHandler = (event) => {
-        event.preventDefault()
-        const abortController = new AbortController()
+        event.preventDefault();
+
+        // Basic validation
+        if (!reservation.first_name || !reservation.last_name || !reservation.mobile_number || !reservation.reservation_date || !reservation.reservation_time) {
+            setError(new Error("Please fill out all fields."));
+            return;
+        }
+
+        setIsLoading(true);
+        const abortController = new AbortController();
         newReservation(reservation, abortController.signal)
             .then(() => {
-                history.push(`/dashboard?date=${reservation.reservation_date}`)
+                history.push(`/dashboard?date=${reservation.reservation_date}`);
             })
             .catch(setError)
-        return (() => abortController.abort())
+            .finally(() => setIsLoading(false));
+        return (() => abortController.abort());
     }
 
     return (
         <>
             <ErrorAlert error={error} />
             <h2>Create New Reservation</h2>
-            <ReservationForm
-                reservation={reservation}
-                changeHandler={changeHandler}
-                submitHandler={submitHandler}
-            />
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <ReservationForm
+                    reservation={reservation}
+                    changeHandler={changeHandler}
+                    submitHandler={submitHandler}
+                />
+            )}
+            <br />
         </>
-    )
+    );
 }
 
-export default NewReservation
+export default NewReservation;

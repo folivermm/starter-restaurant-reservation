@@ -6,7 +6,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
     return (
         <form onSubmit={submitHandler}>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="first_name">
+                <label htmlFor="first_name">
                     First Name
                 </label>{" "}
                 <br />
@@ -21,7 +21,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
                 />
             </div>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="last_name">
+                <label htmlFor="last_name">
                     Last Name
                 </label>{" "}
                 <br />
@@ -36,7 +36,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
                 />
             </div>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="mobile_name">
+                <label htmlFor="mobile_name">
                     Phone
                 </label>{" "}
                 <br />
@@ -51,7 +51,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
                 />
             </div>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="reservation_date">
+                <label htmlFor="reservation_date">
                     Date
                 </label>{" "}
                 <br />
@@ -66,7 +66,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
                 />
             </div>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="reservation_time">
+                <label htmlFor="reservation_time">
                     Time
                 </label>{" "}
                 <br />
@@ -81,7 +81,7 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
                 />
             </div>
             <div>
-                <label className="col-sm-3 col-form-label" htmlFor="people">
+                <label htmlFor="people">
                     Party Size
                 </label>{" "}
                 <br />
@@ -97,11 +97,10 @@ function ReservationForm({ reservation, changeHandler, submitHandler }) {
             </div>
             <br />
 
-            <button className="btn btn-info btn-lg btn-block" type="submit">
+            <button type="submit">
                 Submit
             </button>
             <button
-                className="btn btn-danger btn-lg btn-block"
                 onClick={() => history.go(-1)}
             >
                 Cancel
