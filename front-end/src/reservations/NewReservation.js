@@ -1,65 +1,123 @@
-import React, { useState } from "react"
-import { useHistory } from "react-router"
-import ReservationForm from "./ReservationForm"
-import { newReservation } from "../utils/api"
-import ErrorAlert from "../layout/ErrorAlert"
-
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { createReservation } from "../utils/api";
+import ErrorAlert from "../layout/ErrorAlert"; // Import the ErrorAlert component
 
 function NewReservation() {
-    const initialFormState = {
+    const history = useHistory();
+    const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
         mobile_number: "",
         reservation_date: "",
         reservation_time: "",
-        people: 1,
-    }
+        people: 1, // Default value
+    });
+    const [apiError, setApiError] = useState(null);
 
-    const [reservation, setReservation] = useState(initialFormState);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const history = useHistory();
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-    const changeHandler = (event) => {
-        setError(null); // Clear any previous error when a user modifies any input
-        setReservation({ ...reservation, [event.target.name]: event.target.value });
-    }
-
-    const submitHandler = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Basic validation
-        if (!reservation.first_name || !reservation.last_name || !reservation.mobile_number || !reservation.reservation_date || !reservation.reservation_time) {
-            setError(new Error("Please fill out all fields."));
-            return;
+        try {
+            const response = await createReservation(formData);
+            // Assuming the API returns a reservation_id in the response
+            const reservationId = response.reservation_id;
+            history.push(`/dashboard?date=${formData.reservation_date}`);
+        } catch (error) {
+            setApiError(error.message || "An error occurred.");
         }
+    };
 
-        setIsLoading(true);
-        const abortController = new AbortController();
-        newReservation(reservation, abortController.signal)
-            .then(() => {
-                history.push(`/dashboard?date=${reservation.reservation_date}`);
-            })
-            .catch(setError)
-            .finally(() => setIsLoading(false));
-        return (() => abortController.abort());
-    }
+    const handleCancel = () => {
+        history.push("/dashboard"); // Redirect to the dashboard
+    };
 
     return (
-        <>
-            <ErrorAlert error={error} />
-            <h2>Create New Reservation</h2>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <ReservationForm
-                    reservation={reservation}
-                    changeHandler={changeHandler}
-                    submitHandler={submitHandler}
-                />
-            )}
-            <br />
-        </>
+        <div>
+            <h2>Create a New Reservation</h2>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="first_name">First Name:</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        value={formData.first_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="last_name">Last Name:</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="mobile_number">Mobile Number:</label>
+                    <input
+                        type="tel"
+                        id="mobile_number"
+                        name="mobile_number"
+                        value={formData.mobile_number}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="reservation_date">Reservation Date:</label>
+                    <input
+                        type="date"
+                        id="reservation_date"
+                        name="reservation_date"
+                        value={formData.reservation_date}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="reservation_time">Reservation Time:</label>
+                    <input
+                        type="time"
+                        id="reservation_time"
+                        name="reservation_time"
+                        value={formData.reservation_time}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="people">Number of People:</label>
+                    <input
+                        type="number"
+                        id="people"
+                        name="people"
+                        value={formData.people}
+                        onChange={handleChange}
+                        required
+                        min="1"
+                    />
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                    <button type="button" onClick={handleCancel}>Cancel</button>
+                </div>
+            </form>
+            {/* Display the ErrorAlert component for API errors */}
+            <ErrorAlert error={apiError} />
+        </div>
     );
 }
 

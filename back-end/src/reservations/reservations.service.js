@@ -1,28 +1,28 @@
 const knex = require("../db/connection");
 
-function list(date) {
-    return knex("reservations")
-        .select("*")
-        .where({ reservation_date: date })
-        .orderBy("reservation_time");
+const tableName = "reservations";
+
+function list() {
+    return knex(tableName).select("*").orderBy("reservation_time", "asc");
 }
 
-function create(newRes) {
-    return knex("reservations")
-        .insert(newRes)
+function create(reservation) {
+    return knex(tableName)
+        .insert(reservation)
         .returning("*")
-        .then((results) => results[0]);
+        .then((createdRecords) => createdRecords[0]);
 }
 
-function read(res_id) {
-    return knex("reservations")
+function read(reservation_id) {
+    return knex(tableName)
         .select("*")
-        .where({ reservation_id: res_id })
+        .where({ reservation_id: reservation_id })
         .first();
 }
 
+
 module.exports = {
-    list,
     create,
+    list,
     read,
 };

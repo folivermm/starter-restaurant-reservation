@@ -68,32 +68,19 @@ export async function listReservations(params, signal) {
     .then(formatReservationTime);
 }
 
-export async function newReservation(reservation, signal) {
-  const url = `${API_BASE_URL}/reservations`
-  reservation.people = Number(reservation.people)
-  //reservation.reservation_time = Date.parse(reservation.reservation_time)
+export async function createReservation(reservationData) {
+  const url = `${API_BASE_URL}/reservations`;
   const options = {
-    method: "POST",
+    method: 'POST',
     headers,
-    body: JSON.stringify({ data: reservation }),
-    signal,
+    body: JSON.stringify({ data: reservationData }),
+  };
+
+  try {
+    const response = await fetchJson(url, options);
+    return response;
+  } catch (error) {
+    throw error;
   }
-  return await fetchJson(url, options)
 }
 
-export async function readReservation(reservation_id, signal) {
-  const url = `${API_BASE_URL}/reservations/${reservation_id}`
-  return await fetchJson(url, { signal }, [])
-    .then(formatReservationDate)
-    .then(formatReservationTime)
-}
-
-export async function cancelReservation(reservation_id, status, signal) {
-  const url = `${API_BASE_URL}/reservations/${reservation_id}/status`
-  const options = {
-    method: "PUT",
-    headers,
-    body: JSON.stringify({ data: { status: status } }),
-  }
-  return await fetchJson(url, options, { status })
-}
