@@ -1,65 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import ReservationTable from "./listReservations/ReservationTable";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import { formatAsDate, today, previous, next } from "../utils/date-time";
-import useQuery from "../utils/useQuery"; // Update the path to your useQuery file
-
-function Dashboard() {
-  const history = useHistory();
-  const query = useQuery(); // Use the custom useQuery hook to access query parameters
-  const dateParam = query.get("date") || today();
-  const [currentDate, setCurrentDate] = useState(dateParam);
-
+import { useHistory } from "react-router-dom";
+import { previous, next } from "../utils/date-time";
+/**
+ * Defines the dashboard page.
+ * @param date
+ *  the date for which the user wants to view reservations.
+ * @returns {JSX.Element}
+ */
+function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const history = useHistory();
 
-  useEffect(loadDashboard, [dateParam]);
+  useEffect(loadDashboard, [date]);
 
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
-    listReservations({ date: dateParam }, abortController.signal)
+    listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
     return () => abortController.abort();
   }
 
-  const handleDateChange = (newDate) => {
-    // Update the URL with the new date
-    query.set("date", newDate);
-    history.push(`/dashboard?${query.toString()}`);
-    setCurrentDate(newDate); // Update the current date
-  };
+  function handleToday() {
+    history.push(`/dashboard`);
+  }
+
+  function handlePrev() {
+    const newDate = previous(date);
+    history.push(`/dashboard?date=${newDate}`);
+  }
+
+  function handleNext() {
+    history.push(`/dashboard?date=${next(date)}`);
+  }
 
   return (
     <main>
-      <h1>Dashboard</h1>
-      <div>
-        <h3>Reservation date: {currentDate}</h3>
-        <div>
-          <button
-            onClick={() => handleDateChange(previous(dateParam))}
-            className="btn btn-primary mx-1"
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => handleDateChange(today())}
-            className="btn btn-primary mx-1"
-          >
-            Today
-          </button>
-          <button
-            onClick={() => handleDateChange(next(dateParam))}
-            className="btn btn-primary mx-1"
-          >
-            Next
-          </button>
-        </div>
+      <h1 className="d-md-flex justify-content-center">Dashboard</h1>
+      <div className="d-md-flex mb-3 justify-content-center">
+        <h4>Reservations for {date}</h4>
+      </div>
+      <div className="pb-2 d-flex justify-content-center">
+        <button onClick={handleToday}>
+          today
+        </button>
+        <button onClick={handlePrev}>
+          previous
+        </button>
+        <button onClick={handleNext}>
+          next
+        </button>
       </div>
       <ErrorAlert error={reservationsError} />
-      {JSON.stringify(reservations)}
+      <ReservationTable
+        reservations={reservations}
+        setReservations={setReservations}
+        setError={setReservationsError}
+      />
     </main>
   );
 }

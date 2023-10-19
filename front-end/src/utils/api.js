@@ -68,19 +68,24 @@ export async function listReservations(params, signal) {
     .then(formatReservationTime);
 }
 
-export async function createReservation(reservationData) {
-  const url = `${API_BASE_URL}/reservations`;
+//Creates new reservation
+export async function createReservation(reservation, signal) {
+  const url = new URL(`${API_BASE_URL}/reservations`);
   const options = {
-    method: 'POST',
+    method: "POST",
     headers,
-    body: JSON.stringify({ data: reservationData }),
+    body: JSON.stringify({ data: reservation }),
+    signal,
   };
-
-  try {
-    const response = await fetchJson(url, options);
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  return await fetchJson(url, options, []);
 }
 
+export async function cancelReservation(reservation_id) {
+  const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}/status`);
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { status: "cancelled" } }),
+  };
+  return await fetchJson(url, options, []);
+}
