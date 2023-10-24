@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReservationTable from "./listReservations/ReservationTable";
-import { listReservations } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { useHistory } from "react-router-dom";
 import { previous, next } from "../utils/date-time";
+import TableList from "./listTables/TableList";
+
 /**
  * Defines the dashboard page.
  * @param date
@@ -12,6 +14,7 @@ import { previous, next } from "../utils/date-time";
  */
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
+  const [tables, setTables] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
   const history = useHistory();
 
@@ -22,6 +25,8 @@ function Dashboard({ date }) {
     setReservationsError(null);
     listReservations({ date }, abortController.signal)
       .then(setReservations)
+      .then(listTables)
+      .then(setTables)
       .catch(setReservationsError);
     return () => abortController.abort();
   }
@@ -43,16 +48,16 @@ function Dashboard({ date }) {
     <main>
       <h1 className="d-md-flex justify-content-center">Dashboard</h1>
       <div className="d-md-flex mb-3 justify-content-center">
-        <h4>Reservations for {date}</h4>
+        <h4 className="mb-0">Reservations for {date}</h4>
       </div>
       <div className="pb-2 d-flex justify-content-center">
-        <button onClick={handleToday}>
+        <button className="btn btn-primary mr-1" onClick={handleToday}>
           today
         </button>
-        <button onClick={handlePrev}>
+        <button className="btn btn-primary mr-1" onClick={handlePrev}>
           previous
         </button>
-        <button onClick={handleNext}>
+        <button className="btn btn-primary" onClick={handleNext}>
           next
         </button>
       </div>
@@ -62,6 +67,9 @@ function Dashboard({ date }) {
         setReservations={setReservations}
         setError={setReservationsError}
       />
+      <div>
+        <TableList tables={tables} loadDashboard={loadDashboard} />
+      </div>
     </main>
   );
 }

@@ -21,6 +21,26 @@ export default function ReservationRow({ reservation, cancelRes }) {
                 {reservation.status}
             </td>
             <td>
+                {reservation.status === "booked" ? (
+                    <a
+                        className="btn btn-secondary"
+                        role="button"
+                        href={`/reservations/${reservation.reservation_id}/seat`}
+                    >
+                        Seat
+                    </a>
+                ) : null}
+            </td>
+            <td>
+                <a
+                    className="btn btn-secondary"
+                    role="button"
+                    href={`/reservations/${reservation.reservation_id}/edit`}
+                >
+                    Edit
+                </a>
+            </td>
+            <td>
                 <button
                     className="btn btn-danger"
                     data-reservation-id-cancel={reservation.reservation_id}
