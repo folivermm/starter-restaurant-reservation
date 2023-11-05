@@ -59,6 +59,7 @@ async function fetchJson(url, options, onCancel) {
  */
 
 export async function listReservations(params, signal) {
+  console.log("list reservations")
   const url = new URL(`${API_BASE_URL}/reservations`);
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value.toString())
@@ -66,6 +67,11 @@ export async function listReservations(params, signal) {
   return await fetchJson(url, { headers, signal }, [])
     .then(formatReservationDate)
     .then(formatReservationTime);
+}
+
+export async function listReservationsForPhoneNumber(mobile_number, signal) {
+  const url = `${API_BASE_URL}/reservations?mobile_number=${mobile_number}`;
+  return await fetchJson(url, { headers, signal }, []);
 }
 
 //Creates new reservation
@@ -131,3 +137,23 @@ export async function cancelReservation(reservation_id) {
   };
   return await fetchJson(url, options, []);
 }
+
+export async function findReservation(reservation_id, signal) {
+  const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}`);
+  return await fetchJson(url, { headers, signal }, [])
+    .then(formatReservationDate)
+    .then(formatReservationTime);
+}
+
+//Updates reservation info
+export async function modifyReservation(id, res, signal) {
+  const url = new URL(`${API_BASE_URL}/reservations/${id}`);
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: res }),
+    signal,
+  };
+  return await fetchJson(url, options, []);
+}
+

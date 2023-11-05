@@ -2,6 +2,7 @@ import React from "react";
 import ActiveReservation from "./ActiveReservation";
 import { cancelReservation } from "../../utils/api";
 import { useHistory } from "react-router-dom";
+
 export default function ReservationTable({
     reservations,
     setReservations,

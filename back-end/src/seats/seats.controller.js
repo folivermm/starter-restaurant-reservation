@@ -89,5 +89,8 @@ module.exports = {
         asyncErrorBoundary(tableIsValid),
         asyncErrorBoundary(update),
     ],
-    unassign: [asyncErrorBoundary(tableIsOccupied), asyncErrorBoundary(unassign)],
+    unassign: [
+        asyncErrorBoundary(tableIsOccupied),
+        asyncErrorBoundary(unassign)
+    ],
 };

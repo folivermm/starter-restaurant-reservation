@@ -146,14 +146,29 @@ const reservationExists = async (req, res, next) => {
 };
 
 //CRUD
+// async function list(req, res) {
+//   // console.log("list")
+//   // debugger
+//   const { date, } = req.query;
+//   let reservations;
+//   reservations = date ? await service.listByDate(date) : await service.list();
+//   await service.list();
+//   res.json({
+//     data: reservations,
+//   });
+// }
+
 async function list(req, res) {
-  const { date } = req.query;
-  let reservations;
-  reservations = date ? await service.listByDate(date) : await service.list();
-  await service.list();
-  res.json({
-    data: reservations,
-  });
+  const { date, mobile_number } = req.query;
+  if (date) {
+    return res.json({
+      data: await service.list(date),
+    });
+  } else {
+    return res.json({
+      data: await service.search(mobile_number),
+    });
+  }
 }
 
 async function create(req, res) {
@@ -172,6 +187,14 @@ async function update(req, res, next) {
   const { reservation_Id } = req.params;
   const { status } = req.body.data;
   const reservation = await service.update(reservation_Id, status);
+  res.json({ data: reservation });
+}
+
+async function modify(req, res, next) {
+  const { reservation_Id } = req.params;
+  const reservation = req.body.data;
+  const data = await service.modify(reservation_Id, reservation);
+  reservation.reservation_id = data.reservation_id;
   res.json({ data: reservation });
 }
 
@@ -194,5 +217,14 @@ module.exports = {
     isValidStatus,
     isAlreadyFinished,
     asyncErrorBoundary(update),
+  ],
+  modify: [
+    isValidReservation,
+    isNotOnTuesday,
+    isInTheFuture,
+    isWithinOpenHours,
+    asyncErrorBoundary(reservationExists),
+    hasBookedStatus,
+    asyncErrorBoundary(modify),
   ],
 };
