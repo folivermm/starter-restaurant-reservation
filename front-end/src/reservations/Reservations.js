@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
 import { isNotOnTuesday } from "../utils/date-time";
 import { isInTheFuture } from "../utils/date-time";
@@ -57,7 +57,7 @@ export default function Reservations() {
         <>
             <ErrorAlert error={reservationsError} />
             <ReservationForm
-                initialformData={formData}
+                initialFormData={formData}
                 handleFormChange={handleFormChange}
                 handleSubmit={handleSubmit}
             />

@@ -21,6 +21,7 @@ function Dashboard({ date }) {
   useEffect(loadDashboard, [date]);
 
   function loadDashboard() {
+
     const abortController = new AbortController();
     setReservationsError(null);
     listReservations({ date }, abortController.signal)
@@ -28,7 +29,9 @@ function Dashboard({ date }) {
       .then(listTables)
       .then(setTables)
       .catch(setReservationsError);
+    console.log(date)
     return () => abortController.abort();
+
   }
 
   function handleToday() {
