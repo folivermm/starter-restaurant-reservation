@@ -157,19 +157,30 @@ const reservationExists = async (req, res, next) => {
 //     data: reservations,
 //   });
 // }
-
 async function list(req, res) {
   const { date, mobile_number } = req.query;
-  if (date) {
-    return res.json({
-      data: await service.list(date),
-    });
+  let reservations;
+  if (mobile_number) {
+    reservations = await service.search(mobile_number);
   } else {
-    return res.json({
-      data: await service.search(mobile_number),
-    });
+    reservations = date ? await service.listByDate(date) : await service.list();
   }
+  res.json({
+    data: reservations,
+  });
 }
+// async function list(req, res) {
+//   const { date, mobile_number } = req.query;
+//   if (date) {
+//     return res.json({
+//       data: await service.list(date),
+//     });
+//   } else {
+//     return res.json({
+//       data: await service.search(mobile_number),
+//     });
+//   }
+// }
 
 async function create(req, res) {
   const reservation = req.body.data;

@@ -399,14 +399,9 @@ so that reservations are accurate and current.
 
 > **Hint** The same validation used for create applies to editing a reservation. The form and the API for updating a reservation must not allow the user to violate any of the rules specified when creating a reservation.
 
+
 ```
 starter-restaurant-reservation-main
-├
-├─ .github
-│  └─ workflows
-│     ├─ codeql-analysis.yml
-│     └─ node.js.yml
-├─ .gitignore
 ├─ back-end
 │  ├─ .gitignore
 │  ├─ knexfile.js
@@ -418,98 +413,14 @@ starter-restaurant-reservation-main
 │  │  ├─ db
 │  │  │  ├─ connection.js
 │  │  │  ├─ migrations
-│  │  │  │  └─ 20210123122225_createReservationsTable.js
+│  │  │  │  ├─ 20210123122225_createReservationsTable.js
+│  │  │  │  ├─ 20231023205113_tables.js
+│  │  │  │  └─ 20231023205849_statusOfReservation.js
 │  │  │  └─ seeds
 │  │  │     ├─ 00-reservations.js
-│  │  │     └─ 00-reservations.json
-│  │  ├─ errors
-│  │  │  ├─ errorHandler.js
-│  │  │  └─ notFound.js
-│  │  ├─ reservations
-│  │  │  ├─ reservations.controller.js
-│  │  │  ├─ reservations.router.js
-│  │  │  └─ reservations.service.js
-│  │  └─ server.js
-│  ├─ test
-│  │  ├─ drop-database.js
-│  │  ├─ jest.config.js
-│  │  ├─ us-01-create-and-list-reservations.test.js
-│  │  ├─ us-02-create-reservations-future-date.test.js
-│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
-│  │  ├─ us-04-seat-reservation.test.js
-│  │  ├─ us-05-finish-occupied-table.test.js
-│  │  ├─ us-06-reservation-status.test.js
-│  │  ├─ us-07-search-reservations.test.js
-│  │  └─ us-08-change-existing-reservation.test.js
-│  └─ vercel.json
-├─ front-end
-│  ├─ .gitignore
-│  ├─ e2e
-│  │  ├─ api.js
-│  │  ├─ jest.config.js
-│  │  ├─ us-01-create-and-list-reservation.test.js
-│  │  ├─ us-02-create-reservations-future-date.test.js
-│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
-│  │  ├─ us-04-seat-reservation.test.js
-│  │  ├─ us-05-finish-occupied-table.test.js
-│  │  ├─ us-06-reservation-status.test.js
-│  │  ├─ us-07-search-reservations.test.js
-│  │  ├─ us-08-change-existing-reservation.test.js
-│  │  └─ utils.js
-│  ├─ jest-puppeteer.config.js
-│  ├─ package-lock.json
-│  ├─ package.json
-│  ├─ public
-│  │  ├─ favicon.ico
-│  │  └─ index.html
-│  ├─ README.md
-│  └─ src
-│     ├─ App.js
-│     ├─ App.test.js
-│     ├─ dashboard
-│     │  └─ Dashboard.js
-│     ├─ index.js
-│     ├─ layout
-│     │  ├─ ErrorAlert.js
-│     │  ├─ Layout.css
-│     │  ├─ Layout.js
-│     │  ├─ Menu.js
-│     │  ├─ NotFound.js
-│     │  └─ Routes.js
-│     ├─ reservations
-│     │  ├─ NewReservation.js
-│     │  ├─ ReservaationList.js
-│     │  ├─ Reservation.js
-│     │  └─ ReservationForm.js
-│     └─ utils
-│        ├─ api.js
-│        ├─ date-time.js
-│        ├─ format-reservation-date.js
-│        ├─ format-reservation-time.js
-│        └─ useQuery.js
-├─ package-lock.json
-├─ package.json
-└─ README.md
-
-```
-```
-starter-restaurant-reservation-main
-
-├─ back-end
-│  ├─ .gitignore
-│  ├─ knexfile.js
-│  ├─ package-lock.json
-│  ├─ package.json
-│  ├─ README.md
-│  ├─ src
-│  │  ├─ app.js
-│  │  ├─ db
-│  │  │  ├─ connection.js
-│  │  │  ├─ migrations
-│  │  │  │  └─ 20210123122225_createReservationsTable.js
-│  │  │  └─ seeds
-│  │  │     ├─ 00-reservations.js
-│  │  │     └─ 00-reservations.json
+│  │  │     ├─ 00-reservations.json
+│  │  │     ├─ 01-tables.js
+│  │  │     └─ 01-tables.json
 │  │  ├─ errors
 │  │  │  ├─ asyncErrorBoundary.js
 │  │  │  ├─ errorHandler.js
@@ -519,39 +430,16 @@ starter-restaurant-reservation-main
 │  │  │  ├─ reservations.controller.js
 │  │  │  ├─ reservations.router.js
 │  │  │  └─ reservations.service.js
+│  │  ├─ seats
+│  │  │  ├─ seats.controller.js
+│  │  │  ├─ seats.router.js
+│  │  │  └─ seats.service.js
 │  │  ├─ server.js
 │  │  └─ tables
 │  │     ├─ tables.controller.js
 │  │     ├─ tables.router.js
 │  │     └─ tables.service.js
-│  ├─ test
-│  │  ├─ drop-database.js
-│  │  ├─ jest.config.js
-│  │  ├─ us-01-create-and-list-reservations.test.js
-│  │  ├─ us-02-create-reservations-future-date.test.js
-│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
-│  │  ├─ us-04-seat-reservation.test.js
-│  │  ├─ us-05-finish-occupied-table.test.js
-│  │  ├─ us-06-reservation-status.test.js
-│  │  ├─ us-07-search-reservations.test.js
-│  │  └─ us-08-change-existing-reservation.test.js
-│  └─ vercel.json
-├─ front-end
-│  ├─ .gitignore
-│  ├─ e2e
-│  │  ├─ api.js
-│  │  ├─ jest.config.js
-│  │  ├─ us-01-create-and-list-reservation.test.js
-│  │  ├─ us-02-create-reservations-future-date.test.js
-│  │  ├─ us-03-create-reservations-eligible-timeframe.test.js
-│  │  ├─ us-04-seat-reservation.test.js
-│  │  ├─ us-05-finish-occupied-table.test.js
-│  │  ├─ us-06-reservation-status.test.js
-│  │  ├─ us-07-search-reservations.test.js
-│  │  ├─ us-08-change-existing-reservation.test.js
-│  │  └─ utils.js
-│  ├─ jest-puppeteer.config.js
-│  ├─ package-lock.json
+
 │  ├─ package.json
 │  ├─ public
 │  │  ├─ favicon.ico
@@ -561,7 +449,14 @@ starter-restaurant-reservation-main
 │     ├─ App.js
 │     ├─ App.test.js
 │     ├─ dashboard
-│     │  └─ Dashboard.js
+│     │  ├─ Dashboard.js
+│     │  ├─ listReservations
+│     │  │  ├─ ActiveReservation.js
+│     │  │  └─ ReservationTable.js
+│     │  └─ listTables
+│     │     ├─ FinishButton.js
+│     │     ├─ TableInfo.js
+│     │     └─ TableList.js
 │     ├─ index.js
 │     ├─ layout
 │     │  ├─ ErrorAlert.js
@@ -571,9 +466,15 @@ starter-restaurant-reservation-main
 │     │  ├─ NotFound.js
 │     │  └─ Routes.js
 │     ├─ reservations
-│     │  ├─ NewReservation.js
-│     │  ├─ Reservation.js
-│     │  └─ ReservationForm.js
+│     │  ├─ EditReservation.js
+│     │  ├─ ReservationForm.js
+│     │  └─ Reservations.js
+│     ├─ search
+│     │  └─ Search.js
+│     ├─ seat
+│     │  └─ Seat.js
+│     ├─ tables
+│     │  └─ Tables.js
 │     └─ utils
 │        ├─ api.js
 │        ├─ date-time.js
