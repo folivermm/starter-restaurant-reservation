@@ -4,7 +4,7 @@ Welcome to the Periodic Table Reservation System! This web application allows yo
 
 ## Live Website
 
-You can access the live website [here](#) (https://restaurant-reservation-frontend-u0yg.onrender.com).
+You can access the live website [here](https://restaurant-reservation-frontend-u0yg.onrender.com)
 
 ## Technology
 
