@@ -32,12 +32,12 @@ function validTable(req, res, next) {
     next();
 }
 
-async function list(req, res, next) {
+async function list(req, res) {
     const data = await service.list();
     res.json({ data });
 }
 
-async function create(req, res, next) {
+async function create(req, res) {
     const table = req.body.data;
     const newTable = await service.create(table);
     table.reservation_id = newTable.reservation_id;

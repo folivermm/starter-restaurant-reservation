@@ -55,16 +55,6 @@ function search(mobile_number) {
             `%${mobile_number.replace(/\D/g, "")}%`
         )
         .orderBy("reservation_date")
-    // .then(results => {
-    //     console.log("Search results:", results);
-    //     return results;
-    // });
-    // .then(results => {
-    //     if (results.length === 0) {
-    //         throw new Error('No reservations found for the provided phone number.');
-    //     }
-    //     return results;
-    // });
 }
 
 

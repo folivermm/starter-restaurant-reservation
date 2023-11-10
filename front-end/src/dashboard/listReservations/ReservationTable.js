@@ -44,7 +44,7 @@ export default function ReservationTable({
             <table className="table table-sm table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">ID #</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">Number</th>

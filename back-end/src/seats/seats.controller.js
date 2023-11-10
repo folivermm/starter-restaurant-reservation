@@ -65,14 +65,14 @@ async function tableIsOccupied(req, res, next) {
 }
 
 //CRUD
-async function update(req, res, next) {
+async function update(req, res) {
     const { reservation_id } = req.body.data;
     const { table_id } = req.params;
     await service.update(table_id, reservation_id);
     res.status(200).json({ data: reservation_id });
 }
 
-async function unassign(req, res, next) {
+async function unassign(req, res) {
     const { table_id } = req.params;
     const reservation = await reservationService.finish(
         res.locals.reservation_id
