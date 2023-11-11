@@ -35,43 +35,43 @@ On the dashboard, users can see the date and time, along with navigation buttons
 
 Users can create new reservations by filling out a form. All fields are required, and mobile numbers should be entered without dashes, spaces, or parentheses. Reservations can only be made for future dates and times, and not during the restaurant's closed hours or on Tuesdays. The party size must be at least 1 person.
 
-![New Reservation](image-1.png)
+![New Reservation](images.readme/image-1.png)
 
 ### Editing a Reservation
 
 After creating a reservation, users can edit or delete it if needed. The edit button on the reservation item in the dashboard allows users to make changes.
 
-![Edit reservation](image-2.png)
-![After clicking edit](image-3.png)
+![Edit reservation](images.readme/image-2.png)
+![After clicking edit](images.readme/image-3.png)
 ### Seating a Reservation
 
 Once a reservation is booked, it appears on the dashboard for the reservation day. Users have three options: Edit, Seat, and Cancel. Seating a reservation is possible by clicking the Seat button, which redirects to the Reservation Seating page.
-![Click seat](image-5.png)
-![Choose seating](image-4.png)
+![Click seat](images.readme/image-5.png)
+![Choose seating](images.readme/image-4.png)
 
 ### Seating Errors
 
 If the user selects an incompatible table for the party, they will receive an alert and need to choose a different table.
 
-![Seating Error](image-6.png)
+![Seating Error](images.readme/image-6.png)
 
 ### Finishing a Reservation
 
 After seating the party, users can click the Finish button, which prompts them to confirm clearing the table. If confirmed, the reservation is removed from the list, and the table status returns to FREE.
 
-![Finish Table](image-7.png)
+![Finish Table](images.readme/image-7.png)
 
 ### New Table
 
 Users can create a new table to accommodate larger parties. The form requires a table name and a capacity greater than 1.
 
-![Create new table](image-8.png)
+![Create new table](images.readme/image-8.png)
 
 ## Searching for Reservations
 
 If a reservation needs to be found, users can go to the search page and search by mobile number. Partial mobile number searches return all reservations with matching numbers.
 
-![Search by number](image-9.png)
+![Search by number](images.readme/image-9.png)
 
 ## API Documentation
 
