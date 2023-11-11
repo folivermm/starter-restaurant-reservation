@@ -83,15 +83,12 @@ Here are the available API endpoints and their descriptions:
 - `GET /reservations?mobile_number=123`: Returns reservations by searching for a phone number.
 - `GET /reservations/:reservationId`: Returns a reservation by reservation ID.
 - `PUT /reservations/:reservationId`: Updates and returns the reservation matching the reservation ID.
-- `DELETE /reservations/:reservationId`: Deletes the current reservation if no longer needed.
 - `PUT /reservations/:reservationId/status`: Updates the status of a reservation.
 - `GET /tables`: Returns all tables.
 - `POST /tables`: Creates and returns a new table.
 - `PUT /tables/:table_id/seat`: Assigns a table with a reservation ID and changes status to "occupied."
-- `DELETE /tables/:table_id/seat`: Updates a table by deleting the reservation ID and changing status to "free."
 - `GET /tables/:table_id/edit`: Returns a table by table ID.
 - `PUT /tables/:table_id/edit`: Updates and returns the table matching the table ID.
-- `DELETE /tables/:table_id/edit`: Removes a table so it can no longer be used.
 
 ## Installation
 
