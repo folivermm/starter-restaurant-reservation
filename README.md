@@ -25,7 +25,7 @@ You can access the live website [here](https://restaurant-reservation-frontend-u
 
 ## Dashboard
 
-On the dashboard, users can see the date and time, along with navigation buttons to switch between days. It defaults to the current day and displays reservations for the selected day. Tables are listed with information about their name, capacity, and status. Some tables are permanent (Table #1, #2, Bar #1, and Bar #2) and cannot be deleted, but they can be edited.
+On the dashboard, users can see the date and time, along with navigation buttons to switch between days. It defaults to the current day and displays reservations for the selected day. Tables are listed with information about their name, capacity, and status. 
 
 ![Dashboard](images.readme/image.png)
 
