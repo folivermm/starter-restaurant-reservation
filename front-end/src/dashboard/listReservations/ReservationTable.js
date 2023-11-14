@@ -24,7 +24,6 @@ export default function ReservationTable({
             });
             setReservations(updated);
             history.push(`/dashboard`)
-            // history.go(`/dashboard?date=${reservation.reservation_date}`);
         } catch (error) {
             setError(error);
         }
