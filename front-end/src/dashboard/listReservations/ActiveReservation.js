@@ -43,6 +43,7 @@ export default function ReservationRow({ reservation, cancelRes }) {
             </td>
             <td>
                 <button
+                    type="button"
                     className="btn btn-danger"
                     data-reservation-id-cancel={reservation.reservation_id}
                     onClick={handleCancel}
@@ -53,3 +54,8 @@ export default function ReservationRow({ reservation, cancelRes }) {
         </tr>
     );
 }
+
+
+
+// import { useHistory } from "react-router-dom";
+// 
