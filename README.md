@@ -39,7 +39,7 @@ Users can create new reservations by filling out a form. All fields are required
 
 ### Editing a Reservation
 
-After creating a reservation, users can edit or delete it if needed. The edit button on the reservation item in the dashboard allows users to make changes.
+After creating a reservation, users can edit it if needed. The edit button on the reservation item in the dashboard allows users to make changes.
 
 ![Edit reservation](images.readme/image-2.png)
 ![After clicking edit](images.readme/image-3.png)
