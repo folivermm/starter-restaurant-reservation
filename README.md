@@ -72,6 +72,7 @@ Users can create a new table to accommodate larger parties. The form requires a 
 If a reservation needs to be found, users can go to the search page and search by mobile number. Partial mobile number searches return all reservations with matching numbers.
 
 ![Search by number](images.readme/image-9.png)
+![Search by number response](images.readme/image-10.png)
 
 ## API Documentation
 
