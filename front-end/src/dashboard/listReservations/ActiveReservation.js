@@ -54,8 +54,3 @@ export default function ActiveReservation({ reservation, cancelRes }) {
         </tr>
     );
 }
-
-
-
-// import { useHistory } from "react-router-dom";
-// 
