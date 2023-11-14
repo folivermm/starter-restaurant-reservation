@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ReservationRow({ reservation, cancelRes }) {
+export default function ActiveReservation({ reservation, cancelRes }) {
     function handleCancel() {
         return window.confirm(
             "Do you want to cancel this reservation? This cannot be undone."
